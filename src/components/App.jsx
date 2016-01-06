@@ -9,12 +9,12 @@ export default class App extends React.Component {
 
   componentWillMount () {
     console.log("App componentWillMount");
-		if (__CLIENT__) {
-			console.log("Render client");
-		} else {
+    if (__CLIENT__) {
+      console.log("Render client");
+    } else {
       console.log("Render server");
     }
-	}
+  }
 
   componentDidMount() {
     console.log("App componentDidMount");
