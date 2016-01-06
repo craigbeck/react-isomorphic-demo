@@ -20,8 +20,8 @@ export default class App extends React.Component {
     console.log("App componentDidMount");
     if (__CLIENT__) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const { coords } = position;
-        this.setState({ coords });
+        const { coords: { accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed }, timestamp } = position;
+        this.setState({ coords: { accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed }, timestamp });
     });
     }
   }
