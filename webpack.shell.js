@@ -4,37 +4,37 @@ var Handlebars = require("handlebars");
 var fs = require("fs");
 var eval = require("eval");
 
-// function ShellBuilder(filename, jsSource) {
-//   this.filename = filename;
-//   this.jsSource = jsSource;
-// }
-//
-// ShellBuilder.prototype.apply = function (compiler) {
-//   compiler.plugin("emit", function (compiler, done) {
-//     var stats = compiler.getStats().toJson();
-//     console.log(this.jsSource);
-//     console.log("");
-//     // console.log(stats);
-//     console.log(compiler.assets);
-//     console.log("");
-//
-//     var asset = compiler.assets[this.jsSource];
-//     // console.log("asset", asset);
-//     // console.log("");
-//     if (!asset) {
-//       return done(new Error("Could not find asset " + this.jsSource))
-//     }
-//
-//     var source = asset.source();
-//     // console.log("source", source)
-//     // console.log("");
-//
-//     var Component = eval(source, undefined, undefined, true);
-//     console.log("Component", Component);
-//
-//     done();
-//   }.bind(this));
-// };
+function ShellBuilder(filename, jsSource) {
+  this.filename = filename;
+  this.jsSource = jsSource;
+}
+
+ShellBuilder.prototype.apply = function (compiler) {
+  compiler.plugin("emit", function (compiler, done) {
+    var stats = compiler.getStats().toJson();
+    console.log(this.jsSource);
+    console.log("");
+    // console.log(stats);
+    // console.log(compiler.assets);
+    // console.log("");
+
+    var asset = compiler.assets[this.jsSource];
+    console.log("asset", asset);
+    console.log("");
+    if (!asset) {
+      return done(new Error("Could not find asset " + this.jsSource))
+    }
+
+    var source = asset.source();
+    // console.log("source", source)
+    // console.log("");
+
+    var Component = eval(source, undefined, undefined, true);
+    console.log("Component", Component);
+
+    done();
+  }.bind(this));
+};
 
 module.exports = {
   entry: {

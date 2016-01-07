@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     path: OUTPUT_DIR,
-    filename: "app.js"
+    filename: "app.js",
+    chunkFilename: "app.[id].[hash].js"
   },
   module: {
     loaders: [
