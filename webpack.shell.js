@@ -2,39 +2,39 @@ var Webpack = require("webpack");
 var ReactToHtmlPlugin = require("react-to-html-webpack-plugin");
 var Handlebars = require("handlebars");
 var fs = require("fs");
-var eval = require("eval");
+// var eval = require("eval");
 
-function ShellBuilder(filename, jsSource) {
-  this.filename = filename;
-  this.jsSource = jsSource;
-}
-
-ShellBuilder.prototype.apply = function (compiler) {
-  compiler.plugin("emit", function (compiler, done) {
-    var stats = compiler.getStats().toJson();
-    console.log(this.jsSource);
-    console.log("");
-    // console.log(stats);
-    // console.log(compiler.assets);
-    // console.log("");
-
-    var asset = compiler.assets[this.jsSource];
-    console.log("asset", asset);
-    console.log("");
-    if (!asset) {
-      return done(new Error("Could not find asset " + this.jsSource))
-    }
-
-    var source = asset.source();
-    // console.log("source", source)
-    // console.log("");
-
-    var Component = eval(source, undefined, undefined, true);
-    console.log("Component", Component);
-
-    done();
-  }.bind(this));
-};
+// function ShellBuilder(filename, jsSource) {
+//   this.filename = filename;
+//   this.jsSource = jsSource;
+// }
+//
+// ShellBuilder.prototype.apply = function (compiler) {
+//   compiler.plugin("emit", function (compiler, done) {
+//     var stats = compiler.getStats().toJson();
+//     console.log(this.jsSource);
+//     console.log("");
+//     // console.log(stats);
+//     // console.log(compiler.assets);
+//     // console.log("");
+//
+//     var asset = compiler.assets[this.jsSource];
+//     console.log("asset", asset);
+//     console.log("");
+//     if (!asset) {
+//       return done(new Error("Could not find asset " + this.jsSource))
+//     }
+//
+//     var source = asset.source();
+//     // console.log("source", source)
+//     // console.log("");
+//
+//     var Component = eval(source, undefined, undefined, true);
+//     console.log("Component", Component);
+//
+//     done();
+//   }.bind(this));
+// };
 
 module.exports = {
   entry: {
@@ -51,7 +51,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel" }
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel" },
+      { test: /\.json$/, exclude: /node_modules/, loader: "json" }
     ]
   },
   resolve: {
@@ -61,7 +62,6 @@ module.exports = {
     new Webpack.DefinePlugin({
       __CLIENT__: false
     }),
-    // new ShellBuilder(null, "shell.js"),
     new ReactToHtmlPlugin("200.html", "shell.js", {
       template: function (data) {
         var applyTemplate = Handlebars.compile(fs.readFileSync("./src/templates/index.html").toString());
@@ -69,5 +69,4 @@ module.exports = {
       }
     })
   ]
-
 };
