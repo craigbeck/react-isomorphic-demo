@@ -67,6 +67,12 @@ module.exports = {
         var applyTemplate = Handlebars.compile(fs.readFileSync("./src/templates/index.html").toString());
         return applyTemplate({ markup: data.html });
       }
+    }),
+    new ReactToHtmlPlugin("index.html", "shell.js", {
+      template: function (data) {
+        var applyTemplate = Handlebars.compile(fs.readFileSync("./src/templates/index.html").toString());
+        return applyTemplate({ markup: data.html });
+      }
     })
   ]
 };

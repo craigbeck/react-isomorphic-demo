@@ -10,6 +10,7 @@
     ]
   },
   "scripts": {
+    "build": "webpack --config webpack.shell.js && webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Craig Beck <luckybonza@gmail.com> (http://craigbeck.github.io/)",
